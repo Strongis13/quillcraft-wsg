@@ -576,6 +576,7 @@ enum Enchants
     OFFHAND_SHIELDSPIKE,
     CHEST_STATS,
     CHEST_HEALTH,
+    CHEST_MANA,
     CLOAK_DODGE,
     CLOAK_SUB,
     CLOAK_ARMOR,
@@ -640,7 +641,8 @@ bool GossipSelect_EnchantNPC(Player* player, Creature* creature, uint32 sender, 
         {
         case EQUIPMENT_SLOT_CHEST:
             player->ADD_GOSSIP_ITEM(5, "Greater Stats",      GOSSIP_SENDER_MAIN, CHEST_STATS);
-            player->ADD_GOSSIP_ITEM(5, "Greater Health",     GOSSIP_SENDER_MAIN, CHEST_HEALTH);
+            player->ADD_GOSSIP_ITEM(5, "Major Health",     GOSSIP_SENDER_MAIN, CHEST_HEALTH);
+            player->ADD_GOSSIP_ITEM(5, "Major Mana",     GOSSIP_SENDER_MAIN, CHEST_MANA);
             break;
         case EQUIPMENT_SLOT_BACK:
             player->ADD_GOSSIP_ITEM(5, "Agility",            GOSSIP_SENDER_MAIN, CLOAK_AGILITY);
@@ -782,6 +784,10 @@ bool GossipSelect_EnchantNPC(Player* player, Creature* creature, uint32 sender, 
             case CHEST_HEALTH:
                 item = player->GetItemByPos(INVENTORY_SLOT_BAG_0, EQUIPMENT_SLOT_CHEST);
                 id = 1892;
+                break;
+            case CHEST_MANA:
+                item = player->GetItemByPos(INVENTORY_SLOT_BAG_0, EQUIPMENT_SLOT_CHEST);
+                id = 1893;
                 break;
             case CLOAK_DODGE:
                 item = player->GetItemByPos(INVENTORY_SLOT_BAG_0, EQUIPMENT_SLOT_BACK);
