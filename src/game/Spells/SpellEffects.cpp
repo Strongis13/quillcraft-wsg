@@ -3085,8 +3085,9 @@ void Spell::EffectTameCreature(SpellEffectIndex /*effIdx*/)
     pet->SetCreatorGuid(plr->GetObjectGuid());
     pet->SetFactionTemplateId(plr->GetFactionTemplateId());
     pet->SetUInt32Value(UNIT_CREATED_BY_SPELL, m_spellInfo->Id);
+    uint32 petLevel = sWorld.getConfig(CONFIG_BOOL_PET_SYNC_LEVEL) ? plr->GetLevel() : creatureTarget->GetLevel();
 
-    if (!pet->InitStatsForLevel(creatureTarget->GetLevel()))
+    if (!pet->InitStatsForLevel(petLevel))
     {
         sLog.Out(LOG_BASIC, LOG_LVL_ERROR, "Pet::InitStatsForLevel() failed for creature (Entry: %u)!", creatureTarget->GetEntry());
         delete pet;
