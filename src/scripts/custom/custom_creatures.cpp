@@ -1032,28 +1032,6 @@ bool GossipHello_QuillEngineeringNPC(Player* player, Creature* creature) {
     return true;
 }
 
-bool GossipSelect_QuillEngineeringNPC(Player* player, Creature* creature, uint32 sender, uint32 action)
-{
-    switch (action)
-    {
-    case 5:
-        if (!player->HasSkill(SKILL_ENGINEERING))
-            CompleteLearnProfession(player, creature, SKILL_ENGINEERING);
-        break;
-    case 12:
-        if (!player->HasSkill(SKILL_FIRST_AID))
-            CompleteLearnProfession(player, creature, SKILL_FIRST_AID);
-        break;
-    case 13:
-        if (!player->HasSkill(SKILL_FISHING))
-            CompleteLearnProfession(player, creature, SKILL_FISHING);
-        break;
-    }
-
-    player->CLOSE_GOSSIP_MENU();
-    return true;
-}
-
 bool QuillSetProfessionSkill(Player *pPlayer, SkillType skill)
 {
     char* skill_name;
@@ -1084,6 +1062,28 @@ void QuillLearnProfession(Player *pPlayer, Creature *pCreature, SkillType skill)
         if (!QuillSetProfessionSkill(pPlayer, skill))
             pPlayer->GetSession()->SendNotification("Internal error.");
     }
+}
+
+bool GossipSelect_QuillEngineeringNPC(Player* player, Creature* creature, uint32 sender, uint32 action)
+{
+    switch (action)
+    {
+    case 5:
+        if (!player->HasSkill(SKILL_ENGINEERING))
+            QuillLearnProfession(player, creature, SKILL_ENGINEERING);
+        break;
+    case 12:
+        if (!player->HasSkill(SKILL_FIRST_AID))
+            QuillLearnProfession(player, creature, SKILL_FIRST_AID);
+        break;
+    case 13:
+        if (!player->HasSkill(SKILL_FISHING))
+            QuillLearnProfession(player, creature, SKILL_FISHING);
+        break;
+    }
+
+    player->CLOSE_GOSSIP_MENU();
+    return true;
 }
 
 /*
