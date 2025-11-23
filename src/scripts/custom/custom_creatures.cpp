@@ -1019,6 +1019,74 @@ bool GossipSelect_ProfessionNPC(Player* player, Creature* creature, uint32 sende
 }
 
 /*
+* Quillcraft engineering npc
+* Teaches engineering, first aid, and fishing at skill 150 for level 19 twinks
+*/
+
+bool GossipHello_QuillEngineeringNPC(Player* player, Creature* creature) {
+    player->ADD_GOSSIP_ITEM(GOSSIP_ICON_INTERACT_2, "Engineering",          GOSSIP_SENDER_MAIN, 5);
+    player->ADD_GOSSIP_ITEM(GOSSIP_ICON_INTERACT_2, "First Aid",            GOSSIP_SENDER_MAIN, 12);
+    player->ADD_GOSSIP_ITEM(GOSSIP_ICON_INTERACT_2, "Fishing",              GOSSIP_SENDER_MAIN, 13);
+
+    player->SEND_GOSSIP_MENU(player->GetGossipTextId(creature), creature->GetGUID());
+    return true;
+}
+
+bool GossipSelect_QuillEngineeringNPC(Player* player, Creature* creature, uint32 sender, uint32 action)
+{
+    switch (action)
+    {
+    case 5:
+        if (!player->HasSkill(SKILL_ENGINEERING))
+            CompleteLearnProfession(player, creature, SKILL_ENGINEERING);
+        break;
+    case 12:
+        if (!player->HasSkill(SKILL_FIRST_AID))
+            CompleteLearnProfession(player, creature, SKILL_FIRST_AID);
+        break;
+    case 13:
+        if (!player->HasSkill(SKILL_FISHING))
+            CompleteLearnProfession(player, creature, SKILL_FISHING);
+        break;
+    }
+
+    player->CLOSE_GOSSIP_MENU();
+    return true;
+}
+
+void QuillLearnProfession(Player *pPlayer, Creature *pCreature, SkillType skill)
+{
+    if (pPlayer->GetFreePrimaryProfessionPoints() == 0 && !(skill == SKILL_COOKING || skill == SKILL_FIRST_AID))
+    {
+        pPlayer->GetSession()->SendNotification("You already know two primary professions.");
+    }
+    else
+    {
+        if (!QuillSetProfessionSkill(pPlayer, skill))
+            pPlayer->GetSession()->SendNotification("Internal error.");
+    }
+}
+
+bool QuillSetProfessionSkill(Player *pPlayer, SkillType skill)
+{
+    char* skill_name;
+
+    SkillLineEntry const *SkillInfo = sSkillLineStore.LookupEntry(skill);
+    skill_name = SkillInfo->name[sWorld.GetDefaultDbcLocale()];
+
+    if (!SkillInfo)
+    {
+        sLog.Out(LOG_SCRIPTS, LOG_LVL_ERROR, "Profession NPC: received non-valid skill ID");
+        return false;
+    }
+
+    pPlayer->SetSkill(SkillInfo->id, 150, 150);
+//  LearnSkillRecipesHelper(pPlayer, SkillInfo->id);
+    pPlayer->GetSession()->SendNotification("You have been trained in %s", skill_name);
+    return true;
+}
+
+/*
 * Custom premade gear and spec scripts
 */
 
@@ -1253,5 +1321,12 @@ void AddSC_custom_creatures()
     newscript = new Script;
     newscript->Name = "custom_npc_summon_debugAI";
     newscript->GetAI = &GetAI_custom_summon_debug;
+    newscript->RegisterSelf(false);
+
+    //Quillcraft engineering npc
+    newscript = new Script;
+    newscript->Name = "quill_engineering_npc";
+    newscript->pGossipHello = &GossipHello_QuillEngineeringNPC;
+    newscript->pGossipSelect = &GossipSelect_QuillEngineeringNPC;
     newscript->RegisterSelf(false);
 }
