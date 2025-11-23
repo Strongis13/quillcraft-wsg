@@ -1054,19 +1054,6 @@ bool GossipSelect_QuillEngineeringNPC(Player* player, Creature* creature, uint32
     return true;
 }
 
-void QuillLearnProfession(Player *pPlayer, Creature *pCreature, SkillType skill)
-{
-    if (pPlayer->GetFreePrimaryProfessionPoints() == 0 && !(skill == SKILL_COOKING || skill == SKILL_FIRST_AID))
-    {
-        pPlayer->GetSession()->SendNotification("You already know two primary professions.");
-    }
-    else
-    {
-        if (!QuillSetProfessionSkill(pPlayer, skill))
-            pPlayer->GetSession()->SendNotification("Internal error.");
-    }
-}
-
 bool QuillSetProfessionSkill(Player *pPlayer, SkillType skill)
 {
     char* skill_name;
@@ -1086,16 +1073,31 @@ bool QuillSetProfessionSkill(Player *pPlayer, SkillType skill)
     return true;
 }
 
+void QuillLearnProfession(Player *pPlayer, Creature *pCreature, SkillType skill)
+{
+    if (pPlayer->GetFreePrimaryProfessionPoints() == 0 && !(skill == SKILL_COOKING || skill == SKILL_FIRST_AID))
+    {
+        pPlayer->GetSession()->SendNotification("You already know two primary professions.");
+    }
+    else
+    {
+        if (!QuillSetProfessionSkill(pPlayer, skill))
+            pPlayer->GetSession()->SendNotification("Internal error.");
+    }
+}
+
 /*
 * Quillcraft pet trainer npc
 * Teaches relevant level 19 pet abilities
 */
 
+#define SPELL_LIGHTNING_VISUAL 24240
+
 enum Pet_Ability{
     BITE_3,
     CHARGE_2,
     LIGHTNINGBREATH_2
-}
+};
 
 bool GossipHello_QuillPetTrainerNPC(Player* player, Creature* creature) {
     player->ADD_GOSSIP_ITEM(GOSSIP_ICON_INTERACT_2, "Bite (Rank 3)",                GOSSIP_SENDER_MAIN, BITE_3);
@@ -1135,8 +1137,6 @@ bool GossipSelect_QuillPetTrainerNPC(Player* player, Creature* creature, uint32 
 /*
 * Custom premade gear and spec scripts
 */
-
-#define SPELL_LIGHTNING_VISUAL 24240
 
 bool GossipHello_PremadeGearNPC(Player* player, Creature* creature)
 {
