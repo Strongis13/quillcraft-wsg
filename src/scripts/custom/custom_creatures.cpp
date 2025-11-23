@@ -1053,7 +1053,7 @@ bool QuillSetProfessionSkill(Player *pPlayer, SkillType skill)
             pPlayer->SetSkill(SkillInfo->id, 150, 150);
             break;
         case SKILL_FIRST_AID:
-            pPlayer->LearnSpell(4037, false);
+            pPlayer->LearnSpell(19903, false);
             pPlayer->SetSkill(SkillInfo->id, 225, 225);
             break;
         case SKILL_FISHING:
