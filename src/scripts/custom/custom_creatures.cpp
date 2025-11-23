@@ -1087,6 +1087,52 @@ bool QuillSetProfessionSkill(Player *pPlayer, SkillType skill)
 }
 
 /*
+* Quillcraft pet trainer npc
+* Teaches relevant level 19 pet abilities
+*/
+
+enum Pet_Ability{
+    BITE_3,
+    CHARGE_2,
+    LIGHTNINGBREATH_2
+}
+
+bool GossipHello_QuillPetTrainerNPC(Player* player, Creature* creature) {
+    player->ADD_GOSSIP_ITEM(GOSSIP_ICON_INTERACT_2, "Bite (Rank 3)",                GOSSIP_SENDER_MAIN, BITE_3);
+    player->ADD_GOSSIP_ITEM(GOSSIP_ICON_INTERACT_2, "Charge (Rank 2)",              GOSSIP_SENDER_MAIN, CHARGE_2);
+    player->ADD_GOSSIP_ITEM(GOSSIP_ICON_INTERACT_2, "Lightning Breath (Rank 2)",    GOSSIP_SENDER_MAIN, LIGHTNINGBREATH_2);
+
+    player->SEND_GOSSIP_MENU(player->GetGossipTextId(creature), creature->GetGUID());
+    return true;
+}
+
+bool GossipSelect_QuillPetTrainerNPC(Player* player, Creature* creature, uint32 sender, uint32 action)
+{
+    if(player->GetClass() == CLASS_HUNTER){
+        switch (action)
+        {
+        case BITE_3:
+            player->SendSpellGo(player, SPELL_LIGHTNING_VISUAL);
+            player->SendSpellGo(player, 17263);
+            break;
+        case CHARGE_2:
+            player->SendSpellGo(player, SPELL_LIGHTNING_VISUAL);
+            player->SendSpellGo(player, 26184);
+            break;
+        case LIGHTNINGBREATH_2:
+            player->SendSpellGo(player, SPELL_LIGHTNING_VISUAL);
+            player->SendSpellGo(player, 25013);
+            break;
+        }
+    }
+    else{
+       player->GetSession()->SendNotification("You cannot learn this ability."); 
+    }
+    player->CLOSE_GOSSIP_MENU();
+    return true;
+}
+
+/*
 * Custom premade gear and spec scripts
 */
 
@@ -1328,5 +1374,12 @@ void AddSC_custom_creatures()
     newscript->Name = "quill_engineering_npc";
     newscript->pGossipHello = &GossipHello_QuillEngineeringNPC;
     newscript->pGossipSelect = &GossipSelect_QuillEngineeringNPC;
+    newscript->RegisterSelf(false);
+
+    //Quillcraft pet trainer npc
+    newscript = new Script;
+    newscript->Name = "quill_pettrainer_npc";
+    newscript->pGossipHello = &GossipHello_QuillPetTrainerNPC;
+    newscript->pGossipSelect = &GossipSelect_QuillPetTrainerNPC;
     newscript->RegisterSelf(false);
 }
