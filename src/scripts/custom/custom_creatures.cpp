@@ -1045,8 +1045,23 @@ bool QuillSetProfessionSkill(Player *pPlayer, SkillType skill)
         return false;
     }
 
-    pPlayer->SetSkill(SkillInfo->id, 150, 150);
 //  LearnSkillRecipesHelper(pPlayer, SkillInfo->id);
+
+    switch(SkillInfo->id){
+        case SKILL_ENGINEERING:
+            player->LearnSpell(4037, false);
+            pPlayer->SetSkill(SkillInfo->id, 150, 150);
+            break;
+        case SKILL_FIRST_AID:
+            player->LearnSpell(4037, false);
+            pPlayer->SetSkill(SkillInfo->id, 225, 225);
+            break;
+        case SKILL_FISHING:
+            player->LearnSpell(19889, false);
+            pPlayer->SetSkill(SkillInfo->id, 225, 225);
+            break;
+    }
+
     pPlayer->GetSession()->SendNotification("You have been trained in %s", skill_name);
     return true;
 }
