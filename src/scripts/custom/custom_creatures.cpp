@@ -1126,7 +1126,7 @@ bool GossipHello_QuillPetTrainerNPC(Player* player, Creature* creature) {
 bool GossipSelect_QuillPetTrainerNPC(Player* player, Creature* creature, uint32 sender, uint32 action)
 {
     if(player->GetClass() == CLASS_HUNTER){
-        
+
         if(!player->GetPet()){
             player->GetSession()->SendNotification("You don't have a pet.");
             return true; 
@@ -1137,7 +1137,7 @@ bool GossipSelect_QuillPetTrainerNPC(Player* player, Creature* creature, uint32 
         {
             case BITE_3:
                 pet->SendSpellGo(pet, SPELL_LIGHTNING_VISUAL);
-                pet->LearnSpell(17256, false);
+                pet->LearnSpell(17256);
                 //pet->SendSpellGo(pet, 17263);
                 break;
             case CHARGE_2:
