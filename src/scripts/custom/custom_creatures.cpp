@@ -1053,11 +1053,11 @@ bool QuillSetProfessionSkill(Player *pPlayer, SkillType skill)
             pPlayer->SetSkill(SkillInfo->id, 150, 150);
             break;
         case SKILL_FIRST_AID:
-            pPlayer->LearnSpell(19903, false);
+            pPlayer->LearnSpell(7924, false);
             pPlayer->SetSkill(SkillInfo->id, 225, 225);
             break;
         case SKILL_FISHING:
-            pPlayer->LearnSpell(19889, false);
+            pPlayer->SendSpellGo(pPlayer, 7736);
             pPlayer->SetSkill(SkillInfo->id, 225, 225);
             break;
     }
@@ -1083,18 +1083,18 @@ bool GossipSelect_QuillEngineeringNPC(Player* player, Creature* creature, uint32
 {
     switch (action)
     {
-    case 5:
-        if (!player->HasSkill(SKILL_ENGINEERING))
-            QuillLearnProfession(player, creature, SKILL_ENGINEERING);
-        break;
-    case 12:
-        if (!player->HasSkill(SKILL_FIRST_AID))
-            QuillLearnProfession(player, creature, SKILL_FIRST_AID);
-        break;
-    case 13:
-        if (!player->HasSkill(SKILL_FISHING))
-            QuillLearnProfession(player, creature, SKILL_FISHING);
-        break;
+        case 5:
+            if (!player->HasSkill(SKILL_ENGINEERING))
+                QuillLearnProfession(player, creature, SKILL_ENGINEERING);
+            break;
+        case 12:
+            if (!player->HasSkill(SKILL_FIRST_AID))
+                QuillLearnProfession(player, creature, SKILL_FIRST_AID);
+            break;
+        case 13:
+            if (!player->HasSkill(SKILL_FISHING))
+                QuillLearnProfession(player, creature, SKILL_FISHING);
+            break;
     }
 
     player->CLOSE_GOSSIP_MENU();
@@ -1126,20 +1126,21 @@ bool GossipHello_QuillPetTrainerNPC(Player* player, Creature* creature) {
 bool GossipSelect_QuillPetTrainerNPC(Player* player, Creature* creature, uint32 sender, uint32 action)
 {
     if(player->GetClass() == CLASS_HUNTER){
+        pet = player->GetPet();
         switch (action)
         {
-        case BITE_3:
-            player->SendSpellGo(player, SPELL_LIGHTNING_VISUAL);
-            player->SendSpellGo(player, 17263);
-            break;
-        case CHARGE_2:
-            player->SendSpellGo(player, SPELL_LIGHTNING_VISUAL);
-            player->SendSpellGo(player, 26184);
-            break;
-        case LIGHTNINGBREATH_2:
-            player->SendSpellGo(player, SPELL_LIGHTNING_VISUAL);
-            player->SendSpellGo(player, 25013);
-            break;
+            case BITE_3:
+                pet->SendSpellGo(pet, SPELL_LIGHTNING_VISUAL);
+                pet->SendSpellGo(pet, 17263);
+                break;
+            case CHARGE_2:
+                pet->SendSpellGo(pet, SPELL_LIGHTNING_VISUAL);
+                pet->SendSpellGo(pet, 26184);
+                break;
+            case LIGHTNINGBREATH_2:
+                pet->SendSpellGo(pet, SPELL_LIGHTNING_VISUAL);
+                pet->SendSpellGo(pet, 25013);
+                break;
         }
     }
     else{
