@@ -1109,9 +1109,9 @@ bool GossipSelect_QuillEngineeringNPC(Player* player, Creature* creature, uint32
 #define SPELL_LIGHTNING_VISUAL 24240
 
 enum Pet_Ability{
-    BITE_3,
-    CHARGE_2,
-    LIGHTNINGBREATH_2
+    BITE_3 = 17256,
+    CHARGE_2 = 26177,
+    LIGHTNINGBREATH_2 = 25008
 };
 
 bool GossipHello_QuillPetTrainerNPC(Player* player, Creature* creature) {
@@ -1137,18 +1137,22 @@ bool GossipSelect_QuillPetTrainerNPC(Player* player, Creature* creature, uint32 
         switch (action)
         {
             case BITE_3:
-                if(pet->CanLearnPetSpell(17256)){
+                if(pet->CanLearnPetSpell(BITE_3)){
                     pet->SendSpellGo(pet, SPELL_LIGHTNING_VISUAL);
-                    pet->LearnSpell(17256);
+                    pet->LearnSpell(BITE_3);
                 }
                 break;
             case CHARGE_2:
-                pet->SendSpellGo(pet, SPELL_LIGHTNING_VISUAL);
-                pet->LearnSpell(26177);
+                if(pet->CanLearnPetSpell(CHARGE_2)){
+                    pet->SendSpellGo(pet, SPELL_LIGHTNING_VISUAL);
+                    pet->LearnSpell(CHARGE_2);
+                }
                 break;
             case LIGHTNINGBREATH_2:
-                pet->SendSpellGo(pet, SPELL_LIGHTNING_VISUAL);
-                pet->LearnSpell(25008);
+                if(pet->CanLearnPetSpell(LIGHTNINGBREATH_2)){
+                    pet->SendSpellGo(pet, SPELL_LIGHTNING_VISUAL);
+                    pet->LearnSpell(LIGHTNINGBREATH_2);
+                }
                 break;
         }
     }
