@@ -1129,6 +1129,7 @@ bool GossipSelect_QuillPetTrainerNPC(Player* player, Creature* creature, uint32 
 
         if(!player->GetPet()){
             player->GetSession()->SendNotification("You don't have a pet.");
+            player->CLOSE_GOSSIP_MENU();
             return true; 
         }
 
@@ -1136,17 +1137,18 @@ bool GossipSelect_QuillPetTrainerNPC(Player* player, Creature* creature, uint32 
         switch (action)
         {
             case BITE_3:
-                pet->SendSpellGo(pet, SPELL_LIGHTNING_VISUAL);
-                pet->LearnSpell(17256);
-                //pet->SendSpellGo(pet, 17263);
+                if(pet->CanLearnPetSpell(17256)){
+                    pet->SendSpellGo(pet, SPELL_LIGHTNING_VISUAL);
+                    pet->LearnSpell(17256);
+                }
                 break;
             case CHARGE_2:
                 pet->SendSpellGo(pet, SPELL_LIGHTNING_VISUAL);
-                pet->SendSpellGo(pet, 26184);
+                pet->LearnSpell(26177);
                 break;
             case LIGHTNINGBREATH_2:
                 pet->SendSpellGo(pet, SPELL_LIGHTNING_VISUAL);
-                pet->SendSpellGo(pet, 25013);
+                pet->LearnSpell(25008);
                 break;
         }
     }
