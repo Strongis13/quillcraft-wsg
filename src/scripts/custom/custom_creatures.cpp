@@ -1111,13 +1111,23 @@ bool GossipSelect_QuillEngineeringNPC(Player* player, Creature* creature, uint32
 enum Pet_Ability{
     BITE_3 = 17256,
     CHARGE_2 = 26177,
-    LIGHTNINGBREATH_2 = 25008
+    LIGHTNINGBREATH_2 = 25008,
+    CLAW_3 = 16829,
+    COWER_2 = 1753,
+    HOWL_1 = 24604,
+    POISON_1 = 24640,
+    SCREECH_1 = 24423
 };
 
 bool GossipHello_QuillPetTrainerNPC(Player* player, Creature* creature) {
     player->ADD_GOSSIP_ITEM(GOSSIP_ICON_INTERACT_2, "Bite (Rank 3)",                GOSSIP_SENDER_MAIN, BITE_3);
     player->ADD_GOSSIP_ITEM(GOSSIP_ICON_INTERACT_2, "Charge (Rank 2)",              GOSSIP_SENDER_MAIN, CHARGE_2);
+    player->ADD_GOSSIP_ITEM(GOSSIP_ICON_INTERACT_2, "Claw (Rank 3)",    GOSSIP_SENDER_MAIN, CLAW_3);
+    player->ADD_GOSSIP_ITEM(GOSSIP_ICON_INTERACT_2, "Cower (Rank 2)",    GOSSIP_SENDER_MAIN, COWER_2);
+    player->ADD_GOSSIP_ITEM(GOSSIP_ICON_INTERACT_2, "Furious Howl (Rank 1)",    GOSSIP_SENDER_MAIN, HOWL_1);
     player->ADD_GOSSIP_ITEM(GOSSIP_ICON_INTERACT_2, "Lightning Breath (Rank 2)",    GOSSIP_SENDER_MAIN, LIGHTNINGBREATH_2);
+    player->ADD_GOSSIP_ITEM(GOSSIP_ICON_INTERACT_2, "Scorpid Poison (Rank 1)",    GOSSIP_SENDER_MAIN, POISON_1);
+    player->ADD_GOSSIP_ITEM(GOSSIP_ICON_INTERACT_2, "Screech (Rank 1)",    GOSSIP_SENDER_MAIN, SCREECH_1);
 
     player->SEND_GOSSIP_MENU(player->GetGossipTextId(creature), creature->GetGUID());
     return true;
@@ -1148,10 +1158,40 @@ bool GossipSelect_QuillPetTrainerNPC(Player* player, Creature* creature, uint32 
                     pet->LearnSpell(CHARGE_2);
                 }
                 break;
+            case CLAW_3:
+                if(pet->CanLearnPetSpell(CLAW_3)){
+                    pet->SendSpellGo(pet, SPELL_LIGHTNING_VISUAL);
+                    pet->LearnSpell(CLAW_3);
+                }
+                break;
+            case COWER_2:
+                if(pet->CanLearnPetSpell(COWER_2)){
+                    pet->SendSpellGo(pet, SPELL_LIGHTNING_VISUAL);
+                    pet->LearnSpell(COWER_2);
+                }
+                break;
+            case HOWL_1:
+                if(pet->CanLearnPetSpell(HOWL_1)){
+                    pet->SendSpellGo(pet, SPELL_LIGHTNING_VISUAL);
+                    pet->LearnSpell(HOWL_1);
+                }
+                break;
             case LIGHTNINGBREATH_2:
                 if(pet->CanLearnPetSpell(LIGHTNINGBREATH_2)){
                     pet->SendSpellGo(pet, SPELL_LIGHTNING_VISUAL);
                     pet->LearnSpell(LIGHTNINGBREATH_2);
+                }
+                break;
+            case POISON_1:
+                if(pet->CanLearnPetSpell(POISON_1)){
+                    pet->SendSpellGo(pet, SPELL_LIGHTNING_VISUAL);
+                    pet->LearnSpell(POISON_1);
+                }
+                break;
+            case SCREECH_1:
+                if(pet->CanLearnPetSpell(SCREECH_1)){
+                    pet->SendSpellGo(pet, SPELL_LIGHTNING_VISUAL);
+                    pet->LearnSpell(SCREECH_1);
                 }
                 break;
         }
