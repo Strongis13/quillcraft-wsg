@@ -1057,7 +1057,7 @@ bool QuillSetProfessionSkill(Player *pPlayer, SkillType skill)
             pPlayer->SetSkill(SkillInfo->id, 225, 225);
             break;
         case SKILL_FISHING:
-            pPlayer->SendSpellGo(pPlayer, 7736);
+            pPlayer->LearnSpell(7732, false);
             pPlayer->SetSkill(SkillInfo->id, 225, 225);
             break;
     }
