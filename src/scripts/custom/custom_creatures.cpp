@@ -1126,7 +1126,7 @@ bool GossipHello_QuillPetTrainerNPC(Player* player, Creature* creature) {
 bool GossipSelect_QuillPetTrainerNPC(Player* player, Creature* creature, uint32 sender, uint32 action)
 {
     if(player->GetClass() == CLASS_HUNTER){
-        pet = player->GetPet();
+        Pet* pet = player->GetPet();
         switch (action)
         {
             case BITE_3:
