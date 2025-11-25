@@ -1122,12 +1122,12 @@ enum Pet_Ability{
 bool GossipHello_QuillPetTrainerNPC(Player* player, Creature* creature) {
     player->ADD_GOSSIP_ITEM(GOSSIP_ICON_INTERACT_2, "Bite (Rank 3)",                GOSSIP_SENDER_MAIN, BITE_3);
     player->ADD_GOSSIP_ITEM(GOSSIP_ICON_INTERACT_2, "Charge (Rank 2)",              GOSSIP_SENDER_MAIN, CHARGE_2);
-    player->ADD_GOSSIP_ITEM(GOSSIP_ICON_INTERACT_2, "Claw (Rank 3)",    GOSSIP_SENDER_MAIN, CLAW_3);
-    player->ADD_GOSSIP_ITEM(GOSSIP_ICON_INTERACT_2, "Cower (Rank 2)",    GOSSIP_SENDER_MAIN, COWER_2);
-    player->ADD_GOSSIP_ITEM(GOSSIP_ICON_INTERACT_2, "Furious Howl (Rank 1)",    GOSSIP_SENDER_MAIN, HOWL_1);
+    player->ADD_GOSSIP_ITEM(GOSSIP_ICON_INTERACT_2, "Claw (Rank 3)",                GOSSIP_SENDER_MAIN, CLAW_3);
+    player->ADD_GOSSIP_ITEM(GOSSIP_ICON_INTERACT_2, "Cower (Rank 2)",               GOSSIP_SENDER_MAIN, COWER_2);
+    player->ADD_GOSSIP_ITEM(GOSSIP_ICON_INTERACT_2, "Furious Howl (Rank 1)",        GOSSIP_SENDER_MAIN, HOWL_1);
     player->ADD_GOSSIP_ITEM(GOSSIP_ICON_INTERACT_2, "Lightning Breath (Rank 2)",    GOSSIP_SENDER_MAIN, LIGHTNINGBREATH_2);
-    player->ADD_GOSSIP_ITEM(GOSSIP_ICON_INTERACT_2, "Scorpid Poison (Rank 1)",    GOSSIP_SENDER_MAIN, POISON_1);
-    player->ADD_GOSSIP_ITEM(GOSSIP_ICON_INTERACT_2, "Screech (Rank 1)",    GOSSIP_SENDER_MAIN, SCREECH_1);
+    player->ADD_GOSSIP_ITEM(GOSSIP_ICON_INTERACT_2, "Scorpid Poison (Rank 1)",      GOSSIP_SENDER_MAIN, POISON_1);
+    player->ADD_GOSSIP_ITEM(GOSSIP_ICON_INTERACT_2, "Screech (Rank 1)",             GOSSIP_SENDER_MAIN, SCREECH_1);
 
     player->SEND_GOSSIP_MENU(player->GetGossipTextId(creature), creature->GetGUID());
     return true;
