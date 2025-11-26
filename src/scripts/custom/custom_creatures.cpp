@@ -704,8 +704,8 @@ bool GossipSelect_EnchantNPC(Player* player, Creature* creature, uint32 sender, 
             player->ADD_GOSSIP_ITEM(5, "Icy",                GOSSIP_SENDER_MAIN, WEP_ICY);
             player->ADD_GOSSIP_ITEM(5, "Demonslaying",       GOSSIP_SENDER_MAIN, WEP_DEMONSLAYING);
             player->ADD_GOSSIP_ITEM(5, "Weapon Chain",       GOSSIP_SENDER_MAIN, WEAPON_CHAIN);
-            player->ADD_GOSSIP_ITEM(5, "1H Striking (+5)",       GOSSIP_SENDER_MAIN, WEP1H_STRIKING);
-            player->ADD_GOSSIP_ITEM(5, "2H Striking (+9)",       GOSSIP_SENDER_MAIN, WEP2H_SUPERIOR_IMPACT);
+            player->ADD_GOSSIP_ITEM(5, "1H Striking (+5)",   GOSSIP_SENDER_MAIN, WEP1H_STRIKING);
+            player->ADD_GOSSIP_ITEM(5, "2H Striking (+9)",   GOSSIP_SENDER_MAIN, WEP2H_SUPERIOR_IMPACT);
             break;
         case EQUIPMENT_SLOT_OFFHAND:
             player->ADD_GOSSIP_ITEM(5, "Spirit",             GOSSIP_SENDER_MAIN, OFFHAND_SPIRIT);
