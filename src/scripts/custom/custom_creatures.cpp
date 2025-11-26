@@ -628,7 +628,7 @@ void Enchant(Player* player, Item* item, uint32 enchantid)
 
 bool GossipHello_EnchantNPC(Player* player, Creature* creature)
 {
-    player->ADD_GOSSIP_ITEM(5, "Shoulder",   GOSSIP_SENDER_MAIN, EQUIPMENT_SLOT_SHOULDER);
+    player->ADD_GOSSIP_ITEM(5, "Shoulder",   GOSSIP_SENDER_MAIN, EQUIPMENT_SLOT_SHOULDERS);
     player->ADD_GOSSIP_ITEM(5, "Chest",      GOSSIP_SENDER_MAIN, EQUIPMENT_SLOT_CHEST);
     player->ADD_GOSSIP_ITEM(5, "Cloak",      GOSSIP_SENDER_MAIN, EQUIPMENT_SLOT_BACK);
     player->ADD_GOSSIP_ITEM(5, "Bracers",    GOSSIP_SENDER_MAIN, EQUIPMENT_SLOT_WRISTS);
@@ -651,7 +651,7 @@ bool GossipSelect_EnchantNPC(Player* player, Creature* creature, uint32 sender, 
     {
         switch (action)
         {
-        case EQUIPMENT_SLOT_SHOULDER:
+        case EQUIPMENT_SLOT_SHOULDERS:
             player->ADD_GOSSIP_ITEM(5, "Fortitude of the Scourage (Stam)",      GOSSIP_SENDER_MAIN, SHOULDER_STAM);
             player->ADD_GOSSIP_ITEM(5, "Might of the Scourge (AP)",             GOSSIP_SENDER_MAIN, SHOULDER_AP);
             player->ADD_GOSSIP_ITEM(5, "Resilience of the Socurge (healing)",   GOSSIP_SENDER_MAIN, SHOULDER_HEALING);
@@ -729,7 +729,7 @@ bool GossipSelect_EnchantNPC(Player* player, Creature* creature, uint32 sender, 
             case SHOULDER_AP:
             case SHOULDER_HEALING:
             case SHOULDER_SP:
-                item = player->GetItemByPos(INVENTORY_SLOT_BAG_0, EQUIPMENT_SLOT_SHOULDER);
+                item = player->GetItemByPos(INVENTORY_SLOT_BAG_0, EQUIPMENT_SLOT_SHOULDERS);
                 //TODO: check if wearing talbar mantle, fail to enchant if true
                 if (action == SHOULDER_STAM)
                     id = 2716;
@@ -743,10 +743,8 @@ bool GossipSelect_EnchantNPC(Player* player, Creature* creature, uint32 sender, 
 
             case WEP2H_SUPERIOR_IMPACT:
             case WEP2H_AGILITY:
-            case WEP2H_INT:
-            case WEP2H_SPIRIT:
                 item = player->GetItemByPos(INVENTORY_SLOT_BAG_0, EQUIPMENT_SLOT_MAINHAND);
-                if (item && (action == WEP2H_AGILITY || action == WEP2H_SUPERIOR_IMPACT || action == WEP2H_INT || action == WEP2H_SPIRIT))
+                if (item && (action == WEP2H_AGILITY || action == WEP2H_SUPERIOR_IMPACT))
                 {
                     if (item->GetProto()->SubClass != ITEM_SUBCLASS_WEAPON_AXE2 && item->GetProto()->SubClass != ITEM_SUBCLASS_WEAPON_MACE2
                         && item->GetProto()->SubClass != ITEM_SUBCLASS_WEAPON_SWORD2 && item->GetProto()->SubClass != ITEM_SUBCLASS_WEAPON_POLEARM
