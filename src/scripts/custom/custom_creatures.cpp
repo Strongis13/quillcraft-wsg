@@ -820,8 +820,18 @@ bool GossipSelect_EnchantNPC(Player* player, Creature* creature, uint32 sender, 
                 
             case RANGED_SCOPE_3:
                 item = player->GetItemByPos(INVENTORY_SLOT_BAG_0, EQUIPMENT_SLOT_RANGED);
-                id = 33;
-                break;
+                switch (item->GetProto()->SubClass)
+                {
+                    case ITEM_SUBCLASS_WEAPON_BOW:
+                    case ITEM_SUBCLASS_WEAPON_GUN:
+                    case ITEM_SUBCLASS_WEAPON_CROSSBOW:
+                        id = 33;
+                        break;
+                    default:
+                        player->GetSession()->SendNotification("Invalid weapon type");
+                        player->CLOSE_GOSSIP_MENU();
+                        return true;
+                }
 
             case OFFHAND_SPIRIT:
             case OFFHAND_STAM:
